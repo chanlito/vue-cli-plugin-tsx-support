@@ -13,10 +13,10 @@ module.exports = (api, options, rootOptions) => {
     const tsconfig = 'tsconfig.json';
     if (files[tsconfig]) {
       const tsconfigJSON = JSON.parse(files[tsconfig]);
-      tsconfigJSON.include = [
+      tsconfigJSON.compilerOptions.types = [
         ...new Set([
-          'node_modules/vue-tsx-support/enable-check.d.ts',
-          ...(tsconfigJSON.include || []),
+          'vue-tsx-support/enable-check',
+          ...(tsconfigJSON.compilerOptions.types || []),
         ]),
       ];
       files[tsconfig] = JSON.stringify(tsconfigJSON, null, 2);
