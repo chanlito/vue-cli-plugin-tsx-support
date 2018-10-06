@@ -10,13 +10,28 @@ module.exports = (api, options, rootOptions) => {
   });
 
   api.postProcessFiles(files => {
-    // update main.ts
-    const main = files['src/main.ts'];
-    if (!main) throw new Error(`File "main.ts" does not exists.`);
+    const main = 'src/main.ts';
+    if (files[main]) {
+      const lines = files[main].split(/\r?\n/g);
+      const hasImportStatement = lines.find(
+        i => i.indexOf('vue-tsx-support/enable-check') > 0,
+      );
+      if (!hasImportStatement) {
+        lines.unshift(`import 'vue-tsx-support/enable-check';\n`);
+        files[main] = lines.join('\n');
+      }
+    } else {
+      throw new Error(`Could not locate "src/main.ts" file.`);
+    }
 
-    const lines = main.split(/\r?\n/g).reverse();
-    const lastImportIndex = lines.findIndex(line => line.match(/^import/));
-
-    lines[lastImportIndex] += `\nimport 'vue-tsx-support/enable-check';`;
+    const shimsTSX = 'src/shims-tsx.d.ts';
+    if (files[shimsTSX]) {
+      const lines = files[shimsTSX].split(/\r?\n/g);
+      const index = lines.findIndex(i => i.indexOf('[elem: string]: any') > 0);
+      // remove vue `shims-tsx` default index signature
+      // because 'vue-tsx-support/enable-check' already has it.
+      lines.splice(index, 1);
+      files[shimsTSX] = lines.join('\n');
+    }
   });
 };
