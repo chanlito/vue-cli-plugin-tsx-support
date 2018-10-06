@@ -13,6 +13,10 @@
   ],
   "author": "Chanlito Hem <chanlitohem@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chanlito/vue-cli-plugin-tsx-support"
+  },
   "prettier": {
     "singleQuote": true,
     "trailingComma": "all"
