@@ -1,0 +1,20 @@
+{
+  "name": "vue-cli-plugin-tsx-support",
+  "version": "0.1.0",
+  "description": "Enable TSX support for Vue.js",
+  "main": "index.js",
+  "keywords": [
+    "jsx",
+    "tsx",
+    "typescript",
+    "vue",
+    "vue.js",
+    "vue-cli-plugin"
+  ],
+  "author": "Chanlito Hem <chanlitohem@gmail.com>",
+  "license": "MIT",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
+}
