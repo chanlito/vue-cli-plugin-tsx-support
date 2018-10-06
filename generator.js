@@ -10,18 +10,16 @@ module.exports = (api, options, rootOptions) => {
   });
 
   api.postProcessFiles(files => {
-    const main = 'src/main.ts';
-    if (files[main]) {
-      const lines = files[main].split(/\r?\n/g);
-      const hasImportStatement = lines.find(
-        i => i.indexOf('vue-tsx-support/enable-check') > 0,
-      );
-      if (!hasImportStatement) {
-        lines.unshift(`import 'vue-tsx-support/enable-check';\n`);
-        files[main] = lines.join('\n');
-      }
-    } else {
-      throw new Error(`Could not locate "src/main.ts" file.`);
+    const tsconfig = 'tsconfig.json';
+    if (files[tsconfig]) {
+      const tsconfigJSON = JSON.parse(files[tsconfig]);
+      tsconfigJSON.include = [
+        ...new Set([
+          'node_modules/vue-tsx-support/enable-check.d.ts',
+          ...(tsconfigJSON.include || []),
+        ]),
+      ];
+      files[tsconfig] = JSON.stringify(tsconfigJSON, null, 2);
     }
 
     const shimsTSX = 'src/shims-tsx.d.ts';
