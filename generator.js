@@ -11,12 +11,8 @@ module.exports = (api, options, rootOptions) => {
 
   api.postProcessFiles(files => {
     // update main.ts
-    const file = files['src/main.ts'];
-    const main = files[file];
-
-    if (!main) {
-      throw new Error(`File "main.ts" does not exists.`);
-    }
+    const main = files['src/main.ts'];
+    if (!main) throw new Error(`File "main.ts" does not exists.`);
 
     const lines = main.split(/\r?\n/g).reverse();
     const lastImportIndex = lines.findIndex(line => line.match(/^import/));
