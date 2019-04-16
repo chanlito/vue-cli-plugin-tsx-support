@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-tsx-support",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Enable TSX support for Vue.js",
   "main": "index.js",
   "keywords": [
