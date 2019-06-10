@@ -5,7 +5,7 @@ module.exports = (api, options, rootOptions) => {
       'vue-tsx-support': '^2.3.0',
     },
     devDependencies: {
-      'vue-jsx-hot-loader': '^1.4.0',
+      'vue-jsx-hot-loader': '^1.4.1',
     },
   });
 
